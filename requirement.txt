@@ -1,0 +1,2 @@
+built for python2
+install module pygame
