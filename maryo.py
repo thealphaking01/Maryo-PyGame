@@ -76,7 +76,7 @@ class flames:
             return False
 
 class maryo:
-    global moveup, movedown, gravity, cactusrect, firerect
+    global moveup, movedown, moveleft, moveright, gravity, cactusrect, firerect
     speed = 10
     downspeed = 20
 
@@ -99,6 +99,11 @@ class maryo:
         if (gravity and (self.imagerect.bottom < firerect.top)):
             self.imagerect.bottom += self.speed
 
+        if(moveright):
+            self.imagerect.right +=self.speed
+
+        if(moveleft):
+            self.imagerect.right -=self.speed
 
 
 def terminate():        #to end the program
@@ -201,7 +206,7 @@ while True:
 
     flame_list = []
     player = maryo()
-    moveup = movedown = gravity = False
+    moveup = movedown = gravity = moveleft = moveright= False
     flameaddcounter = 0
 
     gameover.stop()
@@ -220,11 +225,29 @@ while True:
                 if event.key == K_UP:
                     movedown = False
                     moveup = True
+                    moveleft = False
+                    moveright = False
                     gravity = False
 
                 if event.key == K_DOWN:
                     movedown = True
                     moveup = False
+                    moveright = False
+                    moveleft = False
+                    gravity = False
+
+                if event.key == K_LEFT:
+                    movedown = False
+                    moveup = False
+                    moveright = False
+                    moveleft = True
+                    gravity = False
+
+                if event.key == K_RIGHT:
+                    movedown = False
+                    moveup = False
+                    moveright = True
+                    moveleft = False
                     gravity = False
 
             if event.type == KEYUP:
@@ -235,6 +258,12 @@ while True:
                 if event.key == K_DOWN:
                     movedown = False
                     gravity = True
+                if event.key == K_LEFT:
+                    moveleft=False
+                    gravity=True
+                if event.key == K_RIGHT:
+                    moveright=False
+                    gravity=True
                     
                 if event.key == K_ESCAPE:
                     terminate()
